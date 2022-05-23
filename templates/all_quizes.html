@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body >
+
+<h1 align="center" >Welcome to our Quizes Page</h1>
+
+
+    {% for quiz in response %}
+        <div align="center">
+            <h3><a href="/quiz/{{quiz[0]}}"> {{quiz[0]}} </a></h3>
+            <form action="del_{{quiz[0]}}">
+                <button name="Delete">Delete Me!</button>
+            </form>
+            <hr>
+        </div>
+    {% endfor %}
+
+<form method="POST" action="">
+    <button type="button" name="new_quiz">Add Quiz</button>
+</form>
+</body>
+</html>

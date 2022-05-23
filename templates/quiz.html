@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Food & Drink Quiz by Nesma</title>
+</head>
+<body color="red">
+
+    <form action="/solve/{quiz_name}" name="the_data_form"  method="POST">
+
+    <marquee behavior="scroll" direction="right" scrollamount="20">
+        <h1 align="center" name="quiz_name" value={{quiz_name}}> {{quiz_name}}</h1>
+    </marquee>
+        <hr>
+
+        <br>
+
+        <!-- for each question in the list of question dictionary -->
+
+        {% for q in response %}
+            <h2> {{q.question}}</h2>
+            <!-- for each answer in answers list -->
+            <!-- When the form is submitted, the data name/value pair will be answers={{ans}} -->
+            {% for ans in q.answers %}
+                <input type="checkbox" name="answers" value={{ans}}>
+                <label>{{ans}}</label>
+                <br>
+                <br>
+            {% endfor %}
+            <hr>
+        {% endfor %}
+
+        <!-- some how get the value of the checked answer and send it back for validation! -->
+
+        <p><input type = "submit" value = "SUBMiT" /></p>
+    </form>
+</body>
+</html>
