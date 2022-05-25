@@ -16,7 +16,7 @@ templates = Jinja2Templates(directory="templates")
 
 # extract a response of questions from api request
 def process_response(quiz_json):
-
+    print(" >>> ", process_response.__name__)
     # list of questions dictionary to send to html
     function_response = []
     for x in range(4):
@@ -40,7 +40,7 @@ def process_response(quiz_json):
 
 # extract a response of questions from api request
 def process_correct_answers(quiz_json):
-
+    print(" >>> ", process_correct_answers.__name__)
     # list of questions dictionary to send to html
     response = []
     for x in range(4):
@@ -51,9 +51,11 @@ def process_correct_answers(quiz_json):
 # open a web page for all quizes
 @app.api_route("/", response_class=HTMLResponse, methods=['GET', 'POST','DELETE'])
 def all_quizes(request: Request):
+    print(" >>> ", all_quizes.__name__)
 
-   #using API to request a quiz
+    # using API to request a quiz
     if request.method == "POST":
+        print(" >>> ", all_quizes.__name__, " POST")
         url = requests.get("https://the-trivia-api.com/api/questions?categories=food_and_drink&limit=4&difficulty=easy")
         respo_json = url.json()
 
@@ -68,7 +70,7 @@ def all_quizes(request: Request):
         try:
             database.add_quiz('Quiz ' + counter, respo_str)
         except:
-            print("insert error!")
+            print("insert in progress ...")
 
         # get all quizes from the database
         try:
@@ -78,6 +80,7 @@ def all_quizes(request: Request):
         return templates.TemplateResponse("all_quizes.html", {"request": request, "response": getting_all})
 
     if request.method == "GET":
+        print(" >>> ", all_quizes.__name__, " GET")
         # get all quizes from the database
         try:
             getting_all = database.get_all()
@@ -89,7 +92,7 @@ def all_quizes(request: Request):
 #to delete quiz
 @app.api_route("/del_{quiz_name}", response_class=HTMLResponse, methods=['GET', 'POST'])
 def remove_quiz(request: Request, quiz_name: str):
-
+    print(" >>> ", remove_quiz.__name__)
     delete_quiz = database.delete_quiz(quiz_name)
     #return templates.TemplateResponse("all_quizes.html", {"request": request, "quiz_name": quiz_name})
     return quiz_name+" deleted!"
@@ -97,7 +100,7 @@ def remove_quiz(request: Request, quiz_name: str):
 # open a web page for the quiz
 @app.api_route("/quiz/{quiz_name}", response_class=HTMLResponse, methods=['GET', 'POST'])
 def quiz(request: Request, quiz_name: str):
-
+    print(" >>> ", quiz.__name__)
     # get quiz data using the quiz name
     retrieve_quiz_data = database.get_quiz(quiz_name)
     # convert full quiz response back to its original json format (from list(tuple(list(dictionaries))) to list(dictionaries) )
@@ -113,7 +116,7 @@ def quiz(request: Request, quiz_name: str):
 #result of quiz answered and the score
 @app.api_route("/solve/{quiz_name}", response_class=HTMLResponse, methods=['GET', 'POST'])
 async def solve_quiz(request: Request, answers: list = Form(...)):
-
+    print(" >>> ", solve_quiz.__name__)
     score = 0
     for x in range(4):
         if answers[x] == correct_answers[x]:
