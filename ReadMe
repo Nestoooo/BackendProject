@@ -1,0 +1,23 @@
+
+Author: Nesma Abdelnaby
+
+Description
+
+The idea of the "Quiz Project" is displaying some random quizzes which is generated with API Requests,
+then storing them on a sqlite3 database.
+The quizzes then displayed by their names out from the database to a web page "all_quizes"
+which have all quizzes names and a "delete me" button for every quiz.
+
+a. By clicking on "ADD QUIZ" button it will request a new quiz with API Request and save it in the database
+and display its name immediately on the same HTML page "all_quizes".
+
+b. By clicking on the quiz name, the web app will navigate to another webpage "quiz", which contains the quiz questions
+with its choices and a "submit" button,
+when we click on "submit" after answering the questions, a new web page will be displayed "solve".
+in "solve" page, we find our checked answers, the correct answers and our score for this quiz.
+
+c. By clicking on "delete me" button, the quiz will be deleted from the the database and disappear from the web page too.
+
+
+Run :   uvicorn main:app
+
